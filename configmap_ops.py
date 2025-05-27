@@ -10,7 +10,9 @@ import logging as logger
 import json
 from jsonpatch import make_patch, apply_patch
 
-logger.basicConfig(level=logger.INFO)
+FORMAT = "[%(asctime)s %(filename)s->%(funcName)s():%(lineno)s]%(levelname)s: %(message)s"
+logger.basicConfig(format=FORMAT, level=logger.INFO)
+#logger.basicConfig(level=logger.INFO)
 logger.getLogger("urllib3").setLevel(logger.INFO)
 
 
@@ -18,8 +20,8 @@ logger.getLogger("urllib3").setLevel(logger.INFO)
 class ConfigMapOps:
     def __init__(self, ops):
         #Initialise the necessary parameters
-        self.name = input("Enter the name of configmap or leave blank to list all configmaps: ")
-        self.namespace = input("Enter the Namespace or leave blank: ")
+        self.name = input("Enter the name of configmap for get/create/patch/delete operations or leave blank to list all configmaps: ")
+        self.namespace = input("Enter the Namespace or default is considered: ")
         if not self.namespace:
             self.namespace = "default"
         # self.subscriptionid = input("Enter the SubscriptionId or leave blank")
